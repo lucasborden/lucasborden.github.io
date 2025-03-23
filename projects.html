@@ -35,18 +35,19 @@
 
   <script src="scripts.js"></script>
 
-
   <script>
     const links = document.querySelectorAll(".nav-links a");
-    const currentURL = window.location.href;
+    const currentPage = window.location.pathname.split("/").pop();
   
     links.forEach(link => {
-      if (currentURL.includes(link.getAttribute("href").split("#")[0])) {
+      const linkPage = link.getAttribute("href").split("/").pop().split("#")[0];
+      if (linkPage === currentPage || (currentPage === "" && linkPage === "index.html")) {
         link.classList.add("active");
       }
     });
   </script>
-
   
+
+
 </body>
 </html>
