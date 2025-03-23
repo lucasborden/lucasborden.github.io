@@ -54,16 +54,16 @@
 
   <script src="scripts.js"></script>
   <script>
-    // Highlight the current page in the navbar
     const links = document.querySelectorAll(".nav-links a");
-    const currentPage = window.location.pathname.split("/").pop();
-
+    const currentPath = window.location.pathname;
+  
     links.forEach(link => {
-      const linkPage = link.getAttribute("href").split("/").pop().split("#")[0];
-      if (linkPage === currentPage || (currentPage === "" && linkPage === "index.html")) {
+      const linkPath = new URL(link.href).pathname;
+      if (linkPath === currentPath) {
         link.classList.add("active");
       }
     });
   </script>
+  
 </body>
 </html>
