@@ -5,33 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lucas Borden</title>
   <link rel="stylesheet" href="styles.css" />
+  <!-- Font Awesome CDN for icons -->
+  <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="site-header">
-        <div class="site-left">
-          <h1 class="site-title">Lucas Borden</h1>
-          <div class="header-icons">
-            <a href="https://www.linkedin.com/in/lucas-borden-991585139/" target="_blank" aria-label="LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">
-              <i class="fas fa-envelope"></i>
-            </a>
-          </div>
-        </div>
-      
-        <nav>
-          <ul class="nav-links">
-            <li><a href="index.html#about" class="active">About</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="docs/cv.pdf" target="_blank">CV</a></li>
-          </ul>
-        </nav>
-      </header>
-      
-      
-      
-      
+  <header class="site-header">
+    <div class="site-left">
+      <h1 class="site-title">Lucas Borden</h1>
+      <div class="header-icons">
+        <a href="https://www.linkedin.com/in/lucas-borden-991585139/" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="docs/cv.pdf" target="_blank">CV</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
     <section id="projects">
@@ -46,11 +44,10 @@
   </main>
 
   <script src="scripts.js"></script>
-
   <script>
     const links = document.querySelectorAll(".nav-links a");
     const currentPage = window.location.pathname.split("/").pop();
-  
+
     links.forEach(link => {
       const linkPage = link.getAttribute("href").split("/").pop().split("#")[0];
       if (linkPage === currentPage || (currentPage === "" && linkPage === "index.html")) {
@@ -58,8 +55,5 @@
       }
     });
   </script>
-  
-
-
 </body>
 </html>
