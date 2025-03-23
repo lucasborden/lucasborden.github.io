@@ -72,8 +72,11 @@
   }
   
   .profile-pic {
-    max-width: 100px;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
+    width: 120px;          /* limits width */
+    max-width: 100%;       /* keeps it responsive */
+    height: auto;          /* auto-adjust height */
+    border-radius: 8px;    /* optional: round corners */
+    object-fit: cover;     /* prevents stretching */
+    display: block;
   }
+  
