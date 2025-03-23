@@ -222,8 +222,8 @@ button {
 }
 
 .research-right {
-  flex: 1 1 200px;
-  max-width: 200px;
+  flex: 1 1 100px;
+  max-width: 100px;
   text-align: right;
 }
 
