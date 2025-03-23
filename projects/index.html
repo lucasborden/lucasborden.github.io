@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lucas Borden</title>
-    <link rel="stylesheet" href="/styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucas Borden</title>
+
+  <!-- Link to root-level CSS file (use ../ to go up one level from /projects/) -->
+  <link rel="stylesheet" href="../styles.css" />
+
+  <!-- Font Awesome icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+</head>
 
 <body>
   <header class="site-header">
@@ -27,11 +31,10 @@
 
     <nav>
       <ul class="nav-links">
-        <li><a href="/about" class="active">About</a></li>
-        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/projects" class="active">Projects</a></li>
         <li><a href="/docs/cv.pdf" target="_blank">CV</a></li>
       </ul>
-      
     </nav>
   </header>
 
@@ -49,18 +52,20 @@
     </section>
   </main>
 
-  <script src="scripts.js"></script>
+  <!-- Correct path to JS file -->
+  <script src="../scripts.js"></script>
+
+  <!-- Highlight nav link based on URL -->
   <script>
     const links = document.querySelectorAll(".nav-links a");
-    const currentPath = window.location.pathname;
-  
+    const currentPath = window.location.pathname.replace(/\/$/, "");
+
     links.forEach(link => {
-      const linkPath = new URL(link.href).pathname;
+      const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
       if (linkPath === currentPath) {
         link.classList.add("active");
       }
     });
   </script>
-  
 </body>
 </html>
