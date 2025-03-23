@@ -62,3 +62,19 @@
     border: none;
     cursor: pointer;
   }
+
+  .about-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap; /* helps responsiveness on small screens */
+  }
+  
+  .profile-pic {
+    width: 160px;
+    height: auto;
+    border-radius: 8px; /* Rounded corners */
+    object-fit: cover;
+    flex-shrink: 0;
+  }
