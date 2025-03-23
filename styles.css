@@ -1,3 +1,6 @@
+/* =======================
+   RESET & BASE
+======================= */
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +12,7 @@ body {
   line-height: 1.6;
   background: #fdfdfd;
   color: #333;
-  padding: 0 1rem;
+  padding: 0;
 }
 
 /* =======================
@@ -27,6 +30,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
+  width: 100%;
 }
 
 .site-title {
@@ -38,7 +42,7 @@ header {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   margin: 0;
   padding: 0;
 }
@@ -61,17 +65,16 @@ header {
 }
 
 .nav-links a.active {
-  border-bottom: 2px solid #444; /* Highlight current page */
+  border-bottom: 2px solid #1e90ff; /* Highlight current page */
 }
 
-
-
 /* =======================
-   LAYOUT
+   GENERAL LAYOUT
 ======================= */
 section {
   max-width: 960px;
   margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 /* =======================
@@ -103,29 +106,8 @@ section {
 }
 
 /* =======================
-   PROJECT CARD
+   PROJECTS
 ======================= */
 .project-card {
   background: #f1f1f1;
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 8px;
-}
-
-/* =======================
-   FORM (if you use one)
-======================= */
-form input,
-form textarea {
-  width: 100%;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  background: #333;
-  color: #fff;
-  border: none;
-  cursor: pointer;
 }
