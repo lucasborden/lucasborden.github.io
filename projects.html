@@ -4,50 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lucas Borden</title>
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-/>
 
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Font Awesome Icons (CDN) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsTu4lzD9BZzJ9Gjk9h5T1Vf+6Ukeo4z1h1Dp8aZAQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 </head>
+
 <body>
-    <header class="site-header">
-        <div class="site-left">
-          <h1 class="site-title">Lucas Borden</h1>
-          <div class="header-icons">
-            <a href="https://www.linkedin.com/in/lucas-borden-991585139/" target="_blank" aria-label="LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">
-              <i class="fas fa-envelope"></i>
-            </a>
-          </div>
-        </div>
-      
-        <nav>
-          <ul class="nav-links">
-            <li><a href="index.html">About</a></li>
-            <li><a href="projects.html" class="active">Projects</a></li>
-            <li><a href="docs/cv.pdf" target="_blank">CV</a></li>
-          </ul>
-        </nav>
-      </header>
-      
+  <header class="site-header">
+    <div class="site-left">
+      <h1 class="site-title">Lucas Borden</h1>
+      <div class="header-icons">
+        <a href="https://www.linkedin.com/in/lucas-borden-991585139/" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="docs/cv.pdf" target="_blank">CV</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
     <section id="projects">
       <h2>Projects</h2>
+
       <div class="project-card">
         <h3>Project Name</h3>
         <p>Brief description of your project and tools used.</p>
         <a href="#">View More</a>
       </div>
-      <!-- Add more project cards as needed -->
+
+      <!-- Add more project cards here -->
     </section>
   </main>
 
   <script src="scripts.js"></script>
   <script>
+    // Highlight the current page in the navbar
     const links = document.querySelectorAll(".nav-links a");
     const currentPage = window.location.pathname.split("/").pop();
 
