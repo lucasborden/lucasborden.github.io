@@ -12,7 +12,7 @@ body {
   line-height: 1.6;
   background: #fdfdfd;
   color: #333;
-  padding: 0;
+  padding: 0; /* ← change was here */
 }
 
 /* =======================
