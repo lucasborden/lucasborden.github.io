@@ -11,8 +11,9 @@
         <h1 class="site-title">Lucas Borden</h1>
         <nav>
           <ul class="nav-links">
-            <li><a href="index.html#about" class="active">About</a></li>
+            <li><a href="index.html#about">About</a></li>
             <li><a href="projects.html">Projects</a></li>
+
           </ul>
         </nav>
       </header>
@@ -33,5 +34,19 @@
   </main>
 
   <script src="scripts.js"></script>
+
+
+  <script>
+    const links = document.querySelectorAll(".nav-links a");
+    const currentURL = window.location.href;
+  
+    links.forEach(link => {
+      if (currentURL.includes(link.getAttribute("href").split("#")[0])) {
+        link.classList.add("active");
+      }
+    });
+  </script>
+
+  
 </body>
 </html>
