@@ -17,14 +17,6 @@
     color: #fff;
     padding: 1rem 0;
   }
-
-  <nav>
-  <h1>Lucas Borden</h1>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="projects.html">Projects</a></li>
-  </ul>
-</nav>
   
   nav {
     display: flex;
