@@ -141,6 +141,10 @@ button {
   align-items: center;
 }
 
+.social-icons i {
+  font-size: 1.75rem;
+}
+
 .social-icons a {
   font-size: 1.5rem;
   color: #333;
