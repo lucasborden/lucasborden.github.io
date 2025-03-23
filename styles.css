@@ -184,10 +184,13 @@ button {
 }
 
 
+/* =======================
+   projects
+======================= */
 .research-paper {
   display: flex;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: flex-start;
   margin-top: 2rem;
   flex-wrap: wrap;
@@ -201,14 +204,9 @@ button {
   margin-bottom: 0.5rem;
 }
 
-.research-left .abstract {
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  color: #333;
-}
-
 .paper-link {
   display: inline-block;
+  margin-bottom: 0.75rem;
   color: #1e90ff;
   text-decoration: none;
   font-weight: bold;
@@ -218,13 +216,19 @@ button {
   text-decoration: underline;
 }
 
+.research-left .abstract {
+  font-size: 0.95rem;
+  color: #333;
+}
+
 .research-right {
-  flex: 1 1 30%;
+  flex: 1 1 200px;
+  max-width: 200px;
   text-align: right;
 }
 
 .research-right img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 4px;
 }
