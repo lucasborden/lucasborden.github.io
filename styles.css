@@ -66,15 +66,20 @@
   .about-container {
     display: flex;
     align-items: flex-start;
-    gap: 1.5rem;
-    margin-top: 1rem;
-    flex-wrap: wrap; /* helps responsiveness on small screens */
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap; /* allows stacking on small screens */
   }
   
   .profile-pic {
-    width: 360px;          /* bigger size */
-    max-width: 100%;       /* keeps it responsive */
-    height: auto;          /* maintain aspect ratio */
-    object-fit: cover;     /* prevents stretching */
-    display: block;
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  
+  .about-text {
+    flex: 1;
+    min-width: 250px;
   }
