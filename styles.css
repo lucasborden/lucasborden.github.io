@@ -76,7 +76,7 @@
     height: auto;
     object-fit: cover;
     flex-shrink: 0;
-    border-radius: 0; /* <— force sharp corners */
+    border-radius: 0 !important; /* <— force sharp corners */
   }
   
   .about-text {
@@ -85,5 +85,5 @@
   }
 
   .about-text p {
-    margin-bottom: 1rem; /* adds space below each paragraph */
+    margin-bottom: 1rem !important; /* adds space below each paragraph */
   }
