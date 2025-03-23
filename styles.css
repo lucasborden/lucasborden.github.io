@@ -72,9 +72,8 @@
   }
   
   .profile-pic {
-    width: 160px;
+    max-width: 100px;
     height: auto;
-    border-radius: 8px; /* Rounded corners */
+    border-radius: 8px;
     object-fit: cover;
-    flex-shrink: 0;
   }
