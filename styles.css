@@ -222,13 +222,13 @@ button {
 }
 
 .research-right {
-  flex: 1 1 100px;
-  max-width: 100px;
+  flex: 1 1 150px;
+  max-width: 150px;
   text-align: right;
 }
 
 .research-right img {
   width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 0px;
 }
