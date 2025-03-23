@@ -193,31 +193,3 @@ button {
   gap: 2rem;
   align-items: stretch; /* instead of flex-start */
 }
-
-.research-left {
-  flex: 1 1 60%;
-}
-
-.research-right {
-  flex: 0 0 200px; /* prevents growing */
-  align-self: flex-start;
-}
-
-.research-right img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-@media (max-width: 700px) {
-  .research-paper {
-    flex-direction: column;
-    align-items: center;
-    text-align: left;
-  }
-
-  .research-right {
-    max-width: 100%;
-    margin-top: 1rem;
-  }
-}
