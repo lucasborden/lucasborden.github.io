@@ -36,7 +36,7 @@ body {
 .site-left {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .site-title {
@@ -156,7 +156,7 @@ button {
 }
 
 /* =======================
-   SOCIAL ICONS (if reused elsewhere)
+   SOCIAL ICONS (optional below-text usage)
 ======================= */
 .social-icons {
   margin-top: 1.5rem;
