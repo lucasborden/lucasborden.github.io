@@ -1,9 +1,9 @@
 const links = document.querySelectorAll(".nav-links a");
-const currentPage = window.location.pathname.split("/").filter(Boolean).pop(); // get last part of path
+const currentPath = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
 
 links.forEach(link => {
-  const linkPage = link.getAttribute("href").split("/").filter(Boolean).pop();
-  if (linkPage === currentPage || (currentPage === undefined && linkPage === "about")) {
+  const linkPath = new URL(link.href).pathname.replace(/\/$/, ""); // normalize path
+  if (linkPath === currentPath) {
     link.classList.add("active");
   }
 });
