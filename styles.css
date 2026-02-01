@@ -1,6 +1,4 @@
-/* =======================
-   RESET & BASE
-======================= */
+/* /styles.css */
 * {
   margin: 0;
   padding: 0;
@@ -54,7 +52,7 @@ h3 {
 
 h2 {
   font-size: 1.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.25rem; /* a bit more breathing room under section headers */
 }
 
 p {
@@ -87,7 +85,7 @@ a:hover {
   align-items: center;
   gap: 1rem;
 
-  /* Desktop behavior: keep everything on ONE row */
+  /* Desktop: keep nav on same row and flush right */
   flex-wrap: nowrap;
 }
 
@@ -169,64 +167,7 @@ section {
 }
 
 /* =======================
-   ABOUT SECTION
-======================= */
-.about-container {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 2rem;
-  margin-top: 1.25rem;
-  align-items: start;
-}
-
-.profile-pic {
-  width: 300px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 0;
-  display: block;
-}
-
-.about-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 250px;
-}
-
-.about-text p {
-  margin-bottom: 1rem;
-  color: var(--muted);
-}
-
-/* Put about icons at bottom of text column on desktop */
-.about-text .social-icons {
-  margin-top: auto;
-}
-
-/* =======================
-   SOCIAL ICONS (below-text usage)
-======================= */
-.social-icons {
-  margin-top: 1.25rem;
-  display: flex;
-  gap: 1.25rem;
-  align-items: center;
-}
-
-.social-icons a {
-  font-size: 1.5rem;
-  color: var(--text);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.social-icons a:hover {
-  color: var(--link);
-  text-decoration: none;
-}
-
-/* =======================
-   PROJECTS
+   PROJECTS / CARDS
 ======================= */
 .project-card,
 .research-paper {
@@ -258,6 +199,22 @@ section {
   line-height: 1.65;
   font-size: 1rem;
   color: var(--muted);
+}
+
+/* Authors line for RA section cards */
+.project-authors {
+  margin: 0.25rem 0 0.75rem 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Extra spacing between sections, and extra space before first RA card */
+.section-break {
+  margin-top: 3rem;
+}
+
+#projects .section-break + .project-card {
+  margin-top: 1.75rem;
 }
 
 /* =======================
@@ -314,44 +271,8 @@ section {
 }
 
 /* =======================
-   FORMS (if used)
-======================= */
-form input,
-form textarea {
-  width: 100%;
-  padding: 0.6rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-button {
-  padding: 0.6rem 1rem;
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-/* =======================
    RESPONSIVE
 ======================= */
-@media (max-width: 820px) {
-  .about-container {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-pic {
-    width: min(320px, 100%);
-  }
-}
-
-/* Mobile header: allow wrap and put nav on its own row */
 @media (max-width: 640px) {
   .site-header-inner {
     flex-wrap: wrap;
