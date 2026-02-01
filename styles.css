@@ -185,7 +185,7 @@ section {
 ======================= */
 .about-container {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 290px 1fr; /* ~20% smaller than 360px */
   gap: 2rem;
   margin-top: 1.25rem;
   align-items: start;
@@ -218,6 +218,7 @@ section {
     max-width: 420px;
   }
 }
+
 
 /* =======================
    PROJECTS / CARDS
