@@ -69,6 +69,7 @@ a:hover {
 
 /* =======================
    HEADER & NAVIGATION
+   (content flush to screen edges)
 ======================= */
 .site-header {
   background: var(--header-bg);
@@ -77,15 +78,13 @@ a:hover {
 }
 
 .site-header-inner {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0.75rem var(--gutter);
+  width: 100%;
+  padding: 0.75rem 2rem;
 
   display: flex;
   align-items: center;
   gap: 1rem;
 
-  /* Desktop: keep nav on same row and flush right */
   flex-wrap: nowrap;
 }
 
@@ -104,13 +103,16 @@ a:hover {
   white-space: nowrap;
 }
 
-/* Make the name clickable but styled like plain text */
-.site-title-link {
+/* Header title link should look like plain white text */
+.site-header .site-title .site-title-link,
+.site-header .site-title .site-title-link:visited {
   color: #fff;
   text-decoration: none;
 }
 
-.site-title-link:hover {
+.site-header .site-title .site-title-link:hover,
+.site-header .site-title .site-title-link:focus-visible {
+  color: #fff;
   text-decoration: none;
   opacity: 0.9;
 }
@@ -133,7 +135,6 @@ a:hover {
   text-decoration: none;
 }
 
-/* Nav flush-right */
 .site-header nav {
   margin-left: auto;
 }
@@ -170,6 +171,7 @@ a:hover {
 
 /* =======================
    GENERAL LAYOUT
+   (main content centered)
 ======================= */
 section {
   max-width: var(--container);
@@ -179,18 +181,18 @@ section {
 
 /* =======================
    ABOUT SECTION (homepage)
-   Always STACK (photo above text)
+   Side-by-side on laptop/desktop
 ======================= */
 .about-container {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 360px 1fr;
+  gap: 2rem;
   margin-top: 1.25rem;
   align-items: start;
 }
 
 .profile-pic {
-  width: min(420px, 100%);
+  width: 100%;
   height: auto;
   object-fit: cover;
   border-radius: 0;
@@ -204,6 +206,17 @@ section {
 .about-text p {
   margin-bottom: 1rem;
   color: var(--muted);
+}
+
+/* Stack on smaller screens */
+@media (max-width: 820px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-pic {
+    max-width: 420px;
+  }
 }
 
 /* =======================
@@ -241,14 +254,12 @@ section {
   color: var(--muted);
 }
 
-/* Authors line for RA section cards */
 .project-authors {
   margin: 0.25rem 0 0.75rem 0;
   color: var(--muted);
   line-height: 1.5;
 }
 
-/* Extra spacing between sections, and extra space before first RA card */
 .section-break {
   margin-top: 3rem;
 }
@@ -259,6 +270,7 @@ section {
 
 /* =======================
    FOOTER (match header)
+   (content flush to screen edges)
 ======================= */
 .site-footer {
   margin-top: 2rem;
@@ -268,9 +280,8 @@ section {
 }
 
 .site-footer-inner {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0.75rem var(--gutter);
+  width: 100%;
+  padding: 0.75rem 2rem;
 
   display: flex;
   justify-content: space-between;
@@ -311,9 +322,15 @@ section {
 }
 
 /* =======================
-   RESPONSIVE
+   RESPONSIVE HEADER/FOOTER
 ======================= */
 @media (max-width: 640px) {
+  .site-header-inner,
+  .site-footer-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .site-header-inner {
     flex-wrap: wrap;
     row-gap: 0.6rem;
