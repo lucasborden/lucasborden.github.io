@@ -84,23 +84,26 @@ a:hover {
   padding: 0.75rem var(--gutter);
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap; /* mobile-safe */
+
+  /* Desktop behavior: keep everything on ONE row */
+  flex-wrap: nowrap;
 }
 
 .site-left {
   display: flex;
   align-items: center;
   gap: 1rem;
-  min-width: 240px;
+  flex: 0 0 auto;
+  min-width: 0;
 }
 
 .site-title {
   font-size: 1.35rem;
   margin: 0;
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 
 .header-icons {
@@ -121,13 +124,21 @@ a:hover {
   text-decoration: none;
 }
 
+/* Nav flush-right */
+.site-header nav {
+  margin-left: auto;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
   gap: 1.25rem;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap;
+
+  justify-content: flex-end;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .nav-links a {
@@ -187,7 +198,7 @@ section {
   color: var(--muted);
 }
 
-/* Place about icons at the bottom of the text column (desktop) */
+/* Put about icons at bottom of text column on desktop */
 .about-text .social-icons {
   margin-top: auto;
 }
@@ -250,19 +261,19 @@ section {
 }
 
 /* =======================
-   FOOTER
+   FOOTER (match header)
 ======================= */
 .site-footer {
   margin-top: 2rem;
-  background: #111;
-  color: #ddd;
-  border-top: 1px solid #2a2a2a;
+  background: var(--header-bg);
+  color: #fff;
+  border-top: 1px solid var(--header-border);
 }
 
 .site-footer-inner {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 1rem var(--gutter);
+  padding: 0.75rem var(--gutter);
 
   display: flex;
   justify-content: space-between;
@@ -279,25 +290,27 @@ section {
 }
 
 .footer-divider {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .footer-links {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .footer-links a {
-  color: #ddd;
+  color: #fff;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
   padding-bottom: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .footer-links a:hover {
-  border-bottom: 1px solid #666;
-  text-decoration: none;
+  border-bottom: 2px solid #999;
+  color: #fff;
 }
 
 /* =======================
@@ -336,8 +349,32 @@ button:hover {
   .profile-pic {
     width: min(320px, 100%);
   }
+}
 
-  .site-left {
-    min-width: 0;
+/* Mobile header: allow wrap and put nav on its own row */
+@media (max-width: 640px) {
+  .site-header-inner {
+    flex-wrap: wrap;
+    row-gap: 0.6rem;
+  }
+
+  .site-header nav {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .site-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
   }
 }
