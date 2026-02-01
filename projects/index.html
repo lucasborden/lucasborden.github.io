@@ -1,90 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lucas Borden</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Link to root-level CSS file (use ../ to go up one level from /projects/) -->
-  <link rel="stylesheet" href="../styles.css" />
+    <meta name="description" content="Projects by Lucas Borden — research and writing." />
+    <title>Lucas Borden — Projects</title>
 
-  <!-- Font Awesome icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-</head>
+    <link rel="stylesheet" href="/styles.css" />
 
-<body>
-  <header class="site-header">
-    <div class="site-left">
-      <h1 class="site-title">Lucas Borden</h1>
-      <div class="header-icons">
-        <a href="https://www.linkedin.com/in/lucas-borden-991585139/" target="_blank" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">
-          <i class="fas fa-envelope"></i>
-        </a>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="site-left">
+          <h1 class="site-title">Lucas Borden</h1>
+
+          <div class="header-icons" aria-label="Social links">
+            <a
+              href="https://www.linkedin.com/in/lucas-borden-991585139/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+
+            <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <nav aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="/">About</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li>
+              <a href="/docs/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
+    </header>
 
-    <nav>
-      <ul class="nav-links">
-        <li><a href="/" class="active">About</a></li>
-        <li><a href="/projects" class="active">Projects</a></li>
-        <li><a href="/docs/cv.pdf" target="_blank">CV</a></li>
-      </ul>
-    </nav>
-  </header>
+    <main>
+      <section id="projects">
+        <h2>Projects</h2>
 
-  <main>
-    <section id="projects">
-      <h2>Projects</h2>
-
-
-
-        <!-- endo fert paper -->
         <div class="project-card research-paper">
           <div class="research-left">
             <h3>What the Stork Brought: Endogenous Fertility Preferences</h3>
-            <a href="https://repository.usfca.edu/thes/1536/" target="_blank" class="paper-link">View Paper</a>
+            <a
+              href="https://repository.usfca.edu/thes/1536/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="paper-link"
+              >View Paper</a
+            >
             <p class="abstract">
-              <strong>Abstract:</strong> <em> Where most existing literature on fertility preferences has described how fertility preferences shape outcomes, this paper provides insight into how the sex of a recent birth affects a mother’s fertility preferences. Utilizing data from the Demographic Health Survey from 1985-2020 in 81 countries containing 309,238 mothers who gave birth in the past 12 months and who have equal to or fewer than three children, I employ OLS with two-way fixed effects as my primary specification, examining the effects of the plausibly exogenous sex of a recent birth on sibship sex composition preferences. Results show that a recent daughter birth increases a mother’s stated ideal number of daughters by roughly 0.1 while decreasing the ideal number of sons by about 0.06. Additionally, a recent daughter birth raises the ideal number of total children by 0.04, but this result is less robust to endogeneity. Previous literature has emphasized the power of the firstborn child in shaping a mother’s preferences, but this paper displays that mothers continuously update their preferences past the first birth in magnitudes statistically analogous to treatment effects of the first birth. Treatment effects of a recent daughter birth are directionally homogeneous across different model specifications and when testing for heterogeneous treatment effects across a variety of distinct subsamples. Convincingly, results can be explained within the framework of cognitive dissonance theory, ex-post rationalization, and contact theory. Considering the persistence and directional homogeneity of the results, a novel psychological regularity emerges: mothers with a recent daughter birth prefer a greater ideal number of daughters and a lower ideal number of sons when compared to those who recently birthed a son. </em>
+              <strong>Abstract:</strong>
+              <em>
+                Where most existing literature on fertility preferences has described how fertility
+                preferences shape outcomes, this paper provides insight into how the sex of a recent
+                birth affects a mother’s fertility preferences. Utilizing data from the Demographic
+                Health Survey from 1985-2020 in 81 countries containing 309,238 mothers who gave
+                birth in the past 12 months and who have equal to or fewer than three children, I
+                employ OLS with two-way fixed effects as my primary specification, examining the
+                effects of the plausibly exogenous sex of a recent birth on sibship sex composition
+                preferences. Results show that a recent daughter birth increases a mother’s stated
+                ideal number of daughters by roughly 0.1 while decreasing the ideal number of sons
+                by about 0.06. Additionally, a recent daughter birth raises the ideal number of
+                total children by 0.04, but this result is less robust to endogeneity. Previous
+                literature has emphasized the power of the firstborn child in shaping a mother’s
+                preferences, but this paper displays that mothers continuously update their
+                preferences past the first birth in magnitudes statistically analogous to treatment
+                effects of the first birth. Treatment effects of a recent daughter birth are
+                directionally homogeneous across different model specifications and when testing for
+                heterogeneous treatment effects across a variety of distinct subsamples.
+                Convincingly, results can be explained within the framework of cognitive dissonance
+                theory, ex-post rationalization, and contact theory. Considering the persistence and
+                directional homogeneity of the results, a novel psychological regularity emerges:
+                mothers with a recent daughter birth prefer a greater ideal number of daughters and
+                a lower ideal number of sons when compared to those who recently birthed a son.
+              </em>
             </p>
           </div>
         </div>
-        
-         <!-- quilt -->
-         <div class="project-card research-paper">
+
+        <div class="project-card research-paper">
           <div class="research-left">
             <h3>A Quilt of Spirit</h3>
-            <a href="/docs/quilt.pdf" target="_blank" class="paper-link">View Book (PDF - Unpublished Draft)</a>
+            <a
+              href="/docs/quilt.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="paper-link"
+              >View Book (PDF - Unpublished Draft)</a
+            >
             <p class="abstract">
-              <strong>Summary:</strong> <em> "A Quilt of Spirit" aims to encapsulate the essence of fieldwork, shedding light on its challenges and rewards. It delves into the spellbinding culture of Kadaba, its warm-hearted residents, and its rich cultural heritage. It offers a glimpse into the sweltering heat and humidity of Southern India, along with the devastating, inevitable realities of food poisoning. Above all, though, it highlights how life-changing the experience of conducting fieldwork in the social sciences can be for an aspiring researcher. </em> </p>
+              <strong>Summary:</strong>
+              <em>
+                "A Quilt of Spirit" aims to encapsulate the essence of fieldwork, shedding light on
+                its challenges and rewards. It delves into the spellbinding culture of Kadaba, its
+                warm-hearted residents, and its rich cultural heritage. It offers a glimpse into the
+                sweltering heat and humidity of Southern India, along with the devastating,
+                inevitable realities of food poisoning. Above all, though, it highlights how
+                life-changing the experience of conducting fieldwork in the social sciences can be
+                for an aspiring researcher.
+              </em>
+            </p>
           </div>
         </div>
-        
-      
+      </section>
+    </main>
 
-     
-    </section>
-  </main>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="footer-left">
+          <span class="footer-name">© <span id="year"></span> Lucas Borden</span>
+          <span class="footer-divider">•</span>
+          <span class="footer-affil">University of Zurich</span>
+        </div>
 
-  <!-- Correct path to JS file -->
-  <script src="../scripts.js"></script>
+        <div class="footer-links" aria-label="Footer links">
+          <a
+            href="https://www.linkedin.com/in/lucas-borden-991585139/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">Email</a>
+          <a href="/docs/cv.pdf" target="_blank" rel="noopener noreferrer" aria-label="CV">CV</a>
+        </div>
+      </div>
+    </footer>
 
-  <!-- Highlight nav link based on URL -->
-  <script>
-    const links = document.querySelectorAll(".nav-links a");
-    const currentPath = window.location.pathname.replace(/\/$/, "");
-
-    links.forEach(link => {
-      const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
-      if (linkPath === currentPath) {
-        link.classList.add("active");
-      }
-    });
-  </script>
-</body>
+    <script src="/scripts.js"></script>
+  </body>
 </html>

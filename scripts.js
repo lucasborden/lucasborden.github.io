@@ -1,11 +1,29 @@
-const links = document.querySelectorAll(".nav-links a");
-const currentPath = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
+(function () {
+  // Active nav link highlighting
+  const links = document.querySelectorAll(".nav-links a");
+  if (links.length) {
+    const normalize = (path) => {
+      path = path.split("?")[0].split("#")[0];
+      path = path.replace(/\/$/, "") || "/";
+      if (path.endsWith("/index.html")) path = path.replace(/\/index\.html$/, "") || "/";
+      return path;
+    };
 
-links.forEach(link => {
-  const hrefPath = new URL(link.href).pathname.replace(/\/$/, "");
-  if (hrefPath === currentPath) {
-    link.classList.add("active");
-  } else {
-    link.classList.remove("active"); // explicitly remove from others
+    const currentPath = normalize(window.location.pathname);
+
+    links.forEach((link) => {
+      const href = link.getAttribute("href");
+      const linkPath = normalize(new URL(href, window.location.origin).pathname);
+
+      if (linkPath === currentPath) link.classList.add("active");
+      else link.classList.remove("active");
+    });
   }
-});
+
+  // Footer year (works even if multiple pages include the same footer)
+  const yearEls = document.querySelectorAll("#year");
+  if (yearEls.length) {
+    const year = String(new Date().getFullYear());
+    yearEls.forEach((el) => (el.textContent = year));
+  }
+})();
