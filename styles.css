@@ -104,6 +104,17 @@ a:hover {
   white-space: nowrap;
 }
 
+/* Make the name clickable but styled like plain text */
+.site-title-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.site-title-link:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
 .header-icons {
   display: flex;
   align-items: center;
@@ -172,7 +183,7 @@ section {
 ======================= */
 .about-container {
   display: grid;
-  grid-template-columns: 1fr; /* always one column */
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-top: 1.25rem;
   align-items: start;
