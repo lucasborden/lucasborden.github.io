@@ -52,7 +52,7 @@ h3 {
 
 h2 {
   font-size: 1.5rem;
-  margin-bottom: 1.25rem; /* a bit more breathing room under section headers */
+  margin-bottom: 1.25rem;
 }
 
 p {
@@ -164,6 +164,35 @@ section {
   max-width: var(--container);
   margin: 2rem auto;
   padding: 0 var(--gutter);
+}
+
+/* =======================
+   ABOUT SECTION (homepage)
+   Always STACK (photo above text)
+======================= */
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr; /* always one column */
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  align-items: start;
+}
+
+.profile-pic {
+  width: min(420px, 100%);
+  height: auto;
+  object-fit: cover;
+  border-radius: 0;
+  display: block;
+}
+
+.about-text {
+  min-width: 0;
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+  color: var(--muted);
 }
 
 /* =======================
