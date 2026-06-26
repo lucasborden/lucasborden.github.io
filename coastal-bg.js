@@ -137,19 +137,21 @@
       /* ── sea rows: wave animation ── */
       var progress = (i - seaStart) / (nRows - seaStart); /* 0=horizon 1=shore */
 
-      /* dual-wave horizontal shift */
-      var amp1  = 2  + Math.round(progress * 13);
-      var amp2  = Math.round(1 + progress * 6);
-      var sh1   = Math.round(Math.sin(time * (0.16 + progress * 0.26) + i * 0.21) * amp1);
-      var sh2   = Math.round(Math.sin(time * (0.34 + progress * 0.21) + i * 0.38 + 1.9) * amp2);
+      /* grand-swell horizontal shift — min 10-char amplitude so even
+         horizon rows roll visibly; slow period (~50 s swell, ~25 s shore) */
+      var amp1  = 10 + Math.round(progress * 10);
+      var amp2  = 5  + Math.round(progress * 7);
+      var sh1   = Math.round(Math.sin(time * (0.10 + progress * 0.14) + i * 0.18) * amp1);
+      var sh2   = Math.round(Math.sin(time * (0.21 + progress * 0.15) + i * 0.31 + 1.9) * amp2);
       var shift = sh1 + sh2;
       var s     = ((shift % len) + len) % len;
       var shifted = row.slice(s) + row.slice(0, s);
 
-      /* per-character brightness oscillation */
-      var bFreq = 0.05 + progress * 0.07;
-      var bSpd  = 0.30 + progress * 0.40;
-      var bPhi  = i * 0.17 + progress * 1.9;
+      /* broad brightness rollers — wide spatial crests (2-4 per viewport)
+         sweeping slowly so you see bands of light/dark move like real swells */
+      var bFreq = 0.030 + progress * 0.035;
+      var bSpd  = 0.16  + progress * 0.20;
+      var bPhi  = i * 0.14 + progress * 1.9;
 
       for (var x = 0; x < len; x++) {
         var ch = shifted[x];
@@ -157,10 +159,12 @@
         if (bi === undefined) { chars[x] = ch; continue; }
 
         var wave  = Math.sin(x * bFreq + time * bSpd + bPhi);
-        var delta = wave > 0.35 ? 1 : wave < -0.35 ? -1 : 0;
-        var wave2 = Math.sin(x * bFreq * 1.73 + time * bSpd * 0.61 + bPhi * 0.5);
-        if (wave2 > 0.60) delta += 1;
-        if (progress > 0.60 && wave > 0.65) delta -= 1; /* whitecap foam */
+        var delta = wave > 0.55 ? 2 : wave > 0.22 ? 1 : wave < -0.55 ? -2 : wave < -0.22 ? -1 : 0;
+
+        var wave2 = Math.sin(x * bFreq * 1.61 + time * bSpd * 0.73 + bPhi * 0.5);
+        if (wave2 > 0.48) delta += 1;
+
+        if (progress > 0.55 && wave > 0.55) delta -= 1; /* foreshore foam */
 
         chars[x] = WAVE_CHARS[Math.min(5, Math.max(0, bi + delta))];
       }
