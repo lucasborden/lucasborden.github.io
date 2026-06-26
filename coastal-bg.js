@@ -27,8 +27,8 @@
       'overflow:hidden','white-space:pre','line-height:1.0',
       'color:#b0b0b0','font-family:"Courier New",Courier,monospace',
       'user-select:none',
-      '-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 6%)',
-      'mask-image:linear-gradient(to bottom,transparent 0%,black 6%)'
+      '-webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.05) 10%,black 15%)',
+      'mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.05) 10%,black 15%)'
     ].join(';');
     document.body.insertBefore(pre, document.body.firstChild);
 
@@ -101,10 +101,15 @@
     var seaW     = tgtCols - cliffW;           /* guaranteed sea = left 78%   */
     var blendW   = Math.round(cliffW * 0.45); /* feather = 45% of cliff zone */
 
+    /* Only use the top 68% of cliff art rows — that's the peak + face.
+       The bottom 32% is the uniform cliff base (@@@ blob); we exclude it
+       so the cliff face stretches naturally from top to footer.            */
+    var cliffArtLimit = Math.round(nCliff * 0.68);
+
     for (var i = 0; i < tgtRows; i++) {
-      /* vertical mapping: cliff row 0 → viewport top, last → viewport bottom */
-      var ci   = Math.round(i * (nCliff - 1) / Math.max(1, tgtRows - 1));
-      ci       = Math.min(ci, nCliff - 1);
+      /* vertical mapping: cliff art rows 0..cliffArtLimit → full viewport  */
+      var ci   = Math.round(i * (cliffArtLimit - 1) / Math.max(1, tgtRows - 1));
+      ci       = Math.min(ci, cliffArtLimit - 1);
       var crow = CLIFF_ROWS[ci] || '';
 
       var buf = new Array(tgtCols);
@@ -218,14 +223,12 @@
         chars[x] = WAVE_CHARS[Math.min(5, Math.max(0, bi + delta))];
       }
 
-      /* cliff overlay: visible up to progress 0.82 (restores bottom third).
-         All non-space cliff chars (hh >= 0) show — including light :/-/=
-         which appear as near-white against the heavier chars, giving the
-         white marbling and definition the cliff needs.
-         Fades 0.70→0.82 so base dissolves into ocean rather than cutting off. */
-      if (progress < 0.82) {
-        var fadeRatio  = progress > 0.70 ? (progress - 0.70) / 0.12 : 0;
-        var cliffMinH  = Math.round(fadeRatio * 8); /* 0 → 8 as it fades   */
+      /* cliff overlay: runs to the footer (no cutoff).
+         All non-space cliff chars (hh >= 0) show for full marbling texture.
+         Gentle fade in the last 8% so the cliff meets the footer cleanly.  */
+      {
+        var fadeRatio  = progress > 0.92 ? (progress - 0.92) / 0.08 : 0;
+        var cliffMinH  = Math.round(fadeRatio * 8);
         for (var x = 0; x < len; x++) {
           var cc = cliffRow[x] || ' ';
           var hh = (CLIFF_H[cc] !== undefined) ? CLIFF_H[cc] : -1;
