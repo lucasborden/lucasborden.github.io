@@ -145,34 +145,46 @@
       /* ── sea rows: wave animation ── */
       var progress = (i - seaStart) / (nRows - seaStart); /* 0=horizon 1=shore */
 
-      /* grand-swell horizontal shift — min 10-char amplitude so even
-         horizon rows roll visibly; slow period (~50 s swell, ~25 s shore) */
-      var amp1  = 10 + Math.round(progress * 10);
-      var amp2  = 5  + Math.round(progress * 7);
-      var sh1   = Math.round(Math.sin(time * (0.10 + progress * 0.14) + i * 0.18) * amp1);
-      var sh2   = Math.round(Math.sin(time * (0.21 + progress * 0.15) + i * 0.31 + 1.9) * amp2);
-      var shift = sh1 + sh2;
+      /* three-component swell — incommensurable frequencies create non-repeating
+         interference, diagonal wave fronts from row phase variation            */
+      var amp1 = 16 + Math.round(progress * 18); /* 16–34 chars at shore    */
+      var amp2 =  8 + Math.round(progress * 11); /*  8–19 chars             */
+      var amp3 =  4 + Math.round(progress *  8); /*  4–12 foreground chop   */
+
+      /* slowly varying envelope: groups every ~120 s so some waves are bigger */
+      var env  = 0.72 + 0.28 * Math.sin(time * 0.045 + i * 0.07);
+
+      var sh1  = Math.round(Math.sin(time * (0.08 + progress * 0.11) + i * 0.23        ) * amp1);
+      var sh2  = Math.round(Math.sin(time * (0.19 + progress * 0.16) + i * 0.41 + 2.1  ) * amp2);
+      var sh3  = Math.round(Math.sin(time * (0.37 + progress * 0.21) + i * 0.57 + 4.5  ) * amp3);
+      var shift = Math.round((sh1 + sh2 + sh3) * env);
       var s     = ((shift % len) + len) % len;
       var shifted = row.slice(s) + row.slice(0, s);
 
-      /* broad brightness rollers — wide spatial crests (2-4 per viewport)
-         sweeping slowly so you see bands of light/dark move like real swells */
-      var bFreq = 0.030 + progress * 0.035;
-      var bSpd  = 0.16  + progress * 0.20;
-      var bPhi  = i * 0.14 + progress * 1.9;
+      /* three-component brightness: broad primary rollers + two harmonics
+         produce complex light/dark interference like real open-water swells   */
+      var bFreq = 0.022 + progress * 0.038; /* very wide crests at horizon   */
+      var bSpd  = 0.13  + progress * 0.19;
+      var bPhi  = i * 0.16 + progress * 2.1;
 
       for (var x = 0; x < len; x++) {
         var ch = shifted[x];
         var bi = CHAR_IDX[ch];
         if (bi === undefined) { chars[x] = ch; continue; }
 
-        var wave  = Math.sin(x * bFreq + time * bSpd + bPhi);
-        var delta = wave > 0.55 ? 2 : wave > 0.22 ? 1 : wave < -0.55 ? -2 : wave < -0.22 ? -1 : 0;
+        var wave  = Math.sin(x * bFreq          + time * bSpd          + bPhi);
+        var wave2 = Math.sin(x * bFreq * 1.618  + time * bSpd * 0.79   + bPhi * 0.6);
+        var wave3 = Math.sin(x * bFreq * 2.414  + time * bSpd * 1.27   + bPhi * 1.4);
 
-        var wave2 = Math.sin(x * bFreq * 1.61 + time * bSpd * 0.73 + bPhi * 0.5);
-        if (wave2 > 0.48) delta += 1;
+        /* stepped delta: three levels per component for max contrast range   */
+        var delta = wave > 0.65 ? 3 : wave > 0.30 ? 2 : wave > 0.10 ? 1
+                  : wave < -0.65 ? -3 : wave < -0.30 ? -2 : wave < -0.10 ? -1 : 0;
+        if (wave2 >  0.45) delta += 1;
+        if (wave2 < -0.45) delta -= 1;
+        if (wave3 >  0.55) delta += 1;
 
-        if (progress > 0.55 && wave > 0.55) delta -= 1; /* foreshore foam */
+        /* foreshore crests flash bright (foam) */
+        if (progress > 0.60 && wave > 0.55) delta -= 2;
 
         chars[x] = WAVE_CHARS[Math.min(5, Math.max(0, bi + delta))];
       }
