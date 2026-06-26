@@ -45,8 +45,11 @@
     if (!ROWS.length) return;
     var cols = ROWS[0].length;
     var rows = ROWS.length;
-    /* Courier New monospace: char width ≈ 0.601 × font-size */
-    var fs = window.innerWidth / (cols * 0.601);
+    /* Scale so the full art (all rows × all cols) fits the viewport,
+       then pull back to 72% so the scene reads as a picture, not chars */
+    var fsW = window.innerWidth  / (cols * 0.601);
+    var fsH = window.innerHeight / rows;
+    var fs  = Math.min(fsW, fsH) * 0.72;
     pre.style.fontSize = fs + 'px';
   }
 
