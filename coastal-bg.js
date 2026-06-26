@@ -88,17 +88,25 @@
   function buildCliffPad(tgtRows, tgtCols) {
     var nCliff = CLIFF_ROWS.length;
     var result  = new Array(tgtRows);
+    /* cliff occupies right 38% of viewport; sea rolls freely across left 62% */
+    var cliffW = Math.round(tgtCols * 0.38);
+    var seaW   = tgtCols - cliffW;
+
     for (var i = 0; i < tgtRows; i++) {
       /* vertical mapping: cliff row 0 → viewport top, last → viewport bottom */
       var ci   = Math.round(i * (nCliff - 1) / Math.max(1, tgtRows - 1));
       ci       = Math.min(ci, nCliff - 1);
       var crow = CLIFF_ROWS[ci] || '';
 
-      /* horizontal mapping: scale 303 → tgtCols */
       var buf = new Array(tgtCols);
       for (var x = 0; x < tgtCols; x++) {
-        var cx = Math.round(x * CLIFF_MAX_W / tgtCols);
-        buf[x] = (cx < crow.length) ? crow[cx] : ' ';
+        if (x < seaW) {
+          buf[x] = ' '; /* open sea — wave animation shows through */
+        } else {
+          /* scale cliff art horizontally into right cliffW columns */
+          var cx = Math.round((x - seaW) * CLIFF_MAX_W / cliffW);
+          buf[x] = (cx < crow.length) ? crow[cx] : ' ';
+        }
       }
       result[i] = buf.join('');
     }
