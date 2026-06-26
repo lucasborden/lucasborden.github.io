@@ -165,26 +165,33 @@
       /* ── sea rows: wave animation ── */
       var progress = (i - seaStart) / (nRows - seaStart); /* 0=horizon 1=shore */
 
-      /* three-component swell — incommensurable frequencies create non-repeating
-         interference, diagonal wave fronts from row phase variation            */
-      var amp1 = 16 + Math.round(progress * 18); /* 16–34 chars at shore    */
-      var amp2 =  8 + Math.round(progress * 11); /*  8–19 chars             */
-      var amp3 =  4 + Math.round(progress *  8); /*  4–12 foreground chop   */
+      /* rightward drift: waves travel toward the cliff.
+         Open sea (progress≈0) moves at ~8 chars/s and slows to ~4 near shore
+         (shoaling: speed drops, amplitude grows, period lengthens).           */
+      var drift  = Math.round(time * (8.0 - progress * 4.0));
 
-      /* slowly varying envelope: groups every ~120 s so some waves are bigger */
+      /* amplitude grows near shore — waves pile up as depth decreases         */
+      var amp1 = 16 + Math.round(progress * 26); /* 16–42 chars at shore    */
+      var amp2 =  8 + Math.round(progress * 16); /*  8–24 chars             */
+      var amp3 =  4 + Math.round(progress * 11); /*  4–15 foreground chop   */
+
+      /* slowly varying envelope: wave groups every ~120 s                     */
       var env  = 0.72 + 0.28 * Math.sin(time * 0.045 + i * 0.07);
 
-      var sh1  = Math.round(Math.sin(time * (0.08 + progress * 0.11) + i * 0.23        ) * amp1);
-      var sh2  = Math.round(Math.sin(time * (0.19 + progress * 0.16) + i * 0.41 + 2.1  ) * amp2);
-      var sh3  = Math.round(Math.sin(time * (0.37 + progress * 0.21) + i * 0.57 + 4.5  ) * amp3);
-      var shift = Math.round((sh1 + sh2 + sh3) * env);
+      /* oscillation period lengthens near shore (shoaling: slower, longer)    */
+      var sh1  = Math.round(Math.sin(time * (0.10 - progress * 0.03) + i * 0.23        ) * amp1);
+      var sh2  = Math.round(Math.sin(time * (0.21 - progress * 0.05) + i * 0.41 + 2.1  ) * amp2);
+      var sh3  = Math.round(Math.sin(time * (0.38 - progress * 0.08) + i * 0.57 + 4.5  ) * amp3);
+
+      /* -drift = rightward; oscillations add wave-action variation around it  */
+      var shift = -drift + Math.round((sh1 + sh2 + sh3) * env);
       var s     = ((shift % len) + len) % len;
       var shifted = row.slice(s) + row.slice(0, s);
 
-      /* three-component brightness: broad primary rollers + two harmonics
-         produce complex light/dark interference like real open-water swells   */
-      var bFreq = 0.022 + progress * 0.038; /* very wide crests at horizon   */
-      var bSpd  = 0.13  + progress * 0.19;
+      /* brightness crests sweep rightward (- before bSpd reverses direction).
+         Speed also slows near shore to match the slower swell period.         */
+      var bFreq = 0.022 + progress * 0.038;
+      var bSpd  = 0.14  - progress * 0.04; /* 0.14 at horizon → 0.10 at shore */
       var bPhi  = i * 0.16 + progress * 2.1;
 
       for (var x = 0; x < len; x++) {
@@ -192,9 +199,10 @@
         var bi = CHAR_IDX[ch];
         if (bi === undefined) { chars[x] = ch; continue; }
 
-        var wave  = Math.sin(x * bFreq          + time * bSpd          + bPhi);
-        var wave2 = Math.sin(x * bFreq * 1.618  + time * bSpd * 0.79   + bPhi * 0.6);
-        var wave3 = Math.sin(x * bFreq * 2.414  + time * bSpd * 1.27   + bPhi * 1.4);
+        /* minus sign on bSpd terms = crests travel left→right toward cliff   */
+        var wave  = Math.sin(x * bFreq          - time * bSpd          + bPhi);
+        var wave2 = Math.sin(x * bFreq * 1.618  - time * bSpd * 0.79   + bPhi * 0.6);
+        var wave3 = Math.sin(x * bFreq * 2.414  - time * bSpd * 1.27   + bPhi * 1.4);
 
         /* stepped delta: three levels per component for max contrast range   */
         var delta = wave > 0.65 ? 3 : wave > 0.30 ? 2 : wave > 0.10 ? 1
