@@ -13,6 +13,11 @@
   var WAVE_CHARS = ['.', ':', '-', '=', '+', '*'];
   var CHAR_IDX   = { '.':0, ':':1, '-':2, '=':3, '+':4, '*':5 };
 
+  /* heaviness 0-8 used to feather the cliff's left edge:
+     only the heaviest chars appear right at the boundary;
+     lighter chars phase in further right, dissolving the hard line  */
+  var CLIFF_H = { ' ':-1, '.':0, ':':1, '-':2, '=':3, '+':4, '*':5, '#':6, '%':7, '@':8 };
+
   /* ── init ─────────────────────────────────────────────────────── */
   function init() {
     pre = document.createElement('pre');
@@ -88,9 +93,13 @@
   function buildCliffPad(tgtRows, tgtCols) {
     var nCliff = CLIFF_ROWS.length;
     var result  = new Array(tgtRows);
-    /* cliff occupies right 38% of viewport; sea rolls freely across left 62% */
-    var cliffW = Math.round(tgtCols * 0.38);
-    var seaW   = tgtCols - cliffW;
+    /* cliff spans right 45% of viewport; left 55% is guaranteed open sea.
+       Within the cliff zone the left 18% is a feather band: only the heaviest
+       chars (@, %, #) appear right at the edge, then progressively lighter
+       chars phase in — this dissolves the hard barrier into the sea.          */
+    var cliffW   = Math.round(tgtCols * 0.45);
+    var seaW     = tgtCols - cliffW;
+    var blendW   = Math.round(cliffW * 0.18); /* feather band width          */
 
     for (var i = 0; i < tgtRows; i++) {
       /* vertical mapping: cliff row 0 → viewport top, last → viewport bottom */
@@ -101,12 +110,23 @@
       var buf = new Array(tgtCols);
       for (var x = 0; x < tgtCols; x++) {
         if (x < seaW) {
-          buf[x] = ' '; /* open sea — wave animation shows through */
-        } else {
-          /* scale cliff art horizontally into right cliffW columns */
-          var cx = Math.round((x - seaW) * CLIFF_MAX_W / cliffW);
-          buf[x] = (cx < crow.length) ? crow[cx] : ' ';
+          buf[x] = ' '; /* guaranteed sea */
+          continue;
         }
+        /* scale cliff art into right cliffW columns */
+        var cx = Math.round((x - seaW) * CLIFF_MAX_W / cliffW);
+        var ch = (cx < crow.length) ? crow[cx] : ' ';
+
+        /* feather: in the blend band, suppress chars below the local threshold.
+           At x=seaW only @/%/# survive; threshold drops to 0 at x=seaW+blendW */
+        var dist = x - seaW;
+        if (dist < blendW) {
+          var minH = Math.round(8 * (1 - dist / blendW)); /* 8 → 0            */
+          var h    = (CLIFF_H[ch] !== undefined) ? CLIFF_H[ch] : 5;
+          if (h < minH) ch = ' ';
+        }
+
+        buf[x] = ch;
       }
       result[i] = buf.join('');
     }
@@ -189,10 +209,11 @@
         chars[x] = WAVE_CHARS[Math.min(5, Math.max(0, bi + delta))];
       }
 
-      /* cliff overlay: any non-space cliff char wins over sea */
+      /* cliff overlay: light chars (space, dot, colon) are transparent so
+         sea animation bleeds through the cliff's soft edges naturally        */
       for (var x = 0; x < len; x++) {
         var cc = cliffRow[x] || ' ';
-        if (cc !== ' ') chars[x] = cc;
+        if (cc !== ' ' && cc !== '.' && cc !== ':') chars[x] = cc;
       }
 
       lines[i] = chars.join('');
