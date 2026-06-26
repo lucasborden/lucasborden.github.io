@@ -97,9 +97,9 @@
        Within the cliff zone the left 18% is a feather band: only the heaviest
        chars (@, %, #) appear right at the edge, then progressively lighter
        chars phase in — this dissolves the hard barrier into the sea.          */
-    var cliffW   = Math.round(tgtCols * 0.45);
-    var seaW     = tgtCols - cliffW;
-    var blendW   = Math.round(cliffW * 0.18); /* feather band width          */
+    var cliffW   = Math.round(tgtCols * 0.30); /* cliff in right 30%          */
+    var seaW     = tgtCols - cliffW;           /* guaranteed sea = left 70%   */
+    var blendW   = Math.round(cliffW * 0.55); /* feather = 55% of cliff zone */
 
     for (var i = 0; i < tgtRows; i++) {
       /* vertical mapping: cliff row 0 → viewport top, last → viewport bottom */
