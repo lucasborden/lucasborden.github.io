@@ -97,9 +97,9 @@
        Within the cliff zone the left 18% is a feather band: only the heaviest
        chars (@, %, #) appear right at the edge, then progressively lighter
        chars phase in — this dissolves the hard barrier into the sea.          */
-    var cliffW   = Math.round(tgtCols * 0.30); /* cliff in right 30%          */
-    var seaW     = tgtCols - cliffW;           /* guaranteed sea = left 70%   */
-    var blendW   = Math.round(cliffW * 0.55); /* feather = 55% of cliff zone */
+    var cliffW   = Math.round(tgtCols * 0.22); /* cliff in right 22%          */
+    var seaW     = tgtCols - cliffW;           /* guaranteed sea = left 78%   */
+    var blendW   = Math.round(cliffW * 0.80); /* feather = 80% of cliff zone */
 
     for (var i = 0; i < tgtRows; i++) {
       /* vertical mapping: cliff row 0 → viewport top, last → viewport bottom */
@@ -217,11 +217,12 @@
         chars[x] = WAVE_CHARS[Math.min(5, Math.max(0, bi + delta))];
       }
 
-      /* cliff overlay: light chars (space, dot, colon) are transparent so
-         sea animation bleeds through the cliff's soft edges naturally        */
+      /* cliff overlay: only solid rock chars (heaviness ≥ 5: *, #, %, @)
+         override sea — everything lighter dissolves into the wave animation  */
       for (var x = 0; x < len; x++) {
         var cc = cliffRow[x] || ' ';
-        if (cc !== ' ' && cc !== '.' && cc !== ':') chars[x] = cc;
+        var hh = (CLIFF_H[cc] !== undefined) ? CLIFF_H[cc] : -1;
+        if (hh >= 5) chars[x] = cc;
       }
 
       lines[i] = chars.join('');
