@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var SKY_ROWS = 5; // pure-sky rows in the sea art
+  var SKY_ROWS = 2; // pure-sky rows in the sea art
 
   var pre;
   var ROWS = [], CLIFF_ROWS = [];
@@ -27,8 +27,8 @@
       'overflow:hidden','white-space:pre','line-height:1.0',
       'color:#b0b0b0','font-family:"Courier New",Courier,monospace',
       'user-select:none',
-      '-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 10%)',
-      'mask-image:linear-gradient(to bottom,transparent 0%,black 10%)'
+      '-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 6%)',
+      'mask-image:linear-gradient(to bottom,transparent 0%,black 6%)'
     ].join(';');
     document.body.insertBefore(pre, document.body.firstChild);
 
@@ -99,7 +99,7 @@
        chars phase in — this dissolves the hard barrier into the sea.          */
     var cliffW   = Math.round(tgtCols * 0.22); /* cliff in right 22%          */
     var seaW     = tgtCols - cliffW;           /* guaranteed sea = left 78%   */
-    var blendW   = Math.round(cliffW * 0.80); /* feather = 80% of cliff zone */
+    var blendW   = Math.round(cliffW * 0.45); /* feather = 45% of cliff zone */
 
     for (var i = 0; i < tgtRows; i++) {
       /* vertical mapping: cliff row 0 → viewport top, last → viewport bottom */
@@ -152,12 +152,12 @@
       var cliffRow = CLIFF_PAD[i] || '';
       var chars    = new Array(len);
 
-      /* ── sky rows: dots background, only solid rock chars overlay ── */
+      /* ── sky rows: dots background, full cliff texture overlaid ── */
       if (i < seaStart) {
         for (var x = 0; x < len; x++) {
           var cc = cliffRow[x] || ' ';
           var hh = (CLIFF_H[cc] !== undefined) ? CLIFF_H[cc] : -1;
-          chars[x] = (hh >= 5) ? cc : '.';
+          chars[x] = (hh >= 0) ? cc : '.';
         }
         lines[i] = chars.join('');
         continue;
@@ -218,12 +218,14 @@
         chars[x] = WAVE_CHARS[Math.min(5, Math.max(0, bi + delta))];
       }
 
-      /* cliff overlay: only in upper sea rows (progress < 0.55).
-         Fades out 0.42→0.55 by raising the heaviness threshold toward 8
-         so the cliff silhouette dissolves into ocean before the foreground. */
-      if (progress < 0.55) {
-        var fadeRatio  = progress > 0.42 ? (progress - 0.42) / 0.13 : 0;
-        var cliffMinH  = Math.round(5 + fadeRatio * 3); /* 5 → 8          */
+      /* cliff overlay: visible up to progress 0.82 (restores bottom third).
+         All non-space cliff chars (hh >= 0) show — including light :/-/=
+         which appear as near-white against the heavier chars, giving the
+         white marbling and definition the cliff needs.
+         Fades 0.70→0.82 so base dissolves into ocean rather than cutting off. */
+      if (progress < 0.82) {
+        var fadeRatio  = progress > 0.70 ? (progress - 0.70) / 0.12 : 0;
+        var cliffMinH  = Math.round(fadeRatio * 8); /* 0 → 8 as it fades   */
         for (var x = 0; x < len; x++) {
           var cc = cliffRow[x] || ' ';
           var hh = (CLIFF_H[cc] !== undefined) ? CLIFF_H[cc] : -1;
