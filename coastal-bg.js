@@ -137,24 +137,19 @@
       /* ── sea rows: wave animation ── */
       var progress = (i - seaStart) / (nRows - seaStart); /* 0=horizon 1=shore */
 
-      /* three-component horizontal shift — fast enough to see at 60fps
-         period = 2π / (speed * 0.01667 * 60) seconds
-         speed 2 → ~3 s/cycle   speed 4 → ~1.6 s   speed 6 → ~1 s        */
-      var amp1  = 6  + Math.round(progress * 24); /* up to 30 chars       */
-      var amp2  = 3  + Math.round(progress * 14); /* up to 17 chars       */
-      var amp3  = Math.round(progress * 8);        /* foreshore chop       */
-      var sh1   = Math.round(Math.sin(time * (2.0  + progress * 2.0) + i * 0.21        ) * amp1);
-      var sh2   = Math.round(Math.sin(time * (3.8  + progress * 1.6) + i * 0.38 + 1.9  ) * amp2);
-      var sh3   = Math.round(Math.sin(time * (6.2  + progress * 2.2) + i * 0.55 + 3.5  ) * amp3);
-      var shift = sh1 + sh2 + sh3;
+      /* dual-wave horizontal shift */
+      var amp1  = 2  + Math.round(progress * 13);
+      var amp2  = Math.round(1 + progress * 6);
+      var sh1   = Math.round(Math.sin(time * (0.16 + progress * 0.26) + i * 0.21) * amp1);
+      var sh2   = Math.round(Math.sin(time * (0.34 + progress * 0.21) + i * 0.38 + 1.9) * amp2);
+      var shift = sh1 + sh2;
       var s     = ((shift % len) + len) % len;
       var shifted = row.slice(s) + row.slice(0, s);
 
-      /* per-character brightness — fast churn + crashing whitecaps */
-      var bFreq  = 0.06 + progress * 0.10;
-      var bSpd   = 4.5  + progress * 6.5;   /* was 0.30–0.70, now 4.5–11  */
-      var bPhi   = i * 0.17 + progress * 1.9;
-      var crash  = Math.sin(time * 2.8 + i * 0.85); /* rolling crest pulse */
+      /* per-character brightness oscillation */
+      var bFreq = 0.05 + progress * 0.07;
+      var bSpd  = 0.30 + progress * 0.40;
+      var bPhi  = i * 0.17 + progress * 1.9;
 
       for (var x = 0; x < len; x++) {
         var ch = shifted[x];
@@ -162,18 +157,10 @@
         if (bi === undefined) { chars[x] = ch; continue; }
 
         var wave  = Math.sin(x * bFreq + time * bSpd + bPhi);
-        /* ±2 step when wave is strong for punchy contrast */
-        var delta = wave > 0.55 ? 2 : wave > 0.18 ? 1 : wave < -0.55 ? -2 : wave < -0.18 ? -1 : 0;
-
-        /* counter-wave texture */
-        var wave2 = Math.sin(x * bFreq * 1.73 + time * (bSpd * 0.58) + bPhi * 0.5);
-        if (wave2 > 0.50) delta += 1;
-
-        /* breaking whitecap: crest pulse forces lighter (foam) chars */
-        if (crash > 0.65 && progress > 0.35) delta -= 2;
-
-        /* deep-foreshore spray: near shore goes very light on each peak */
-        if (progress > 0.75 && wave > 0.40) delta -= 1;
+        var delta = wave > 0.35 ? 1 : wave < -0.35 ? -1 : 0;
+        var wave2 = Math.sin(x * bFreq * 1.73 + time * bSpd * 0.61 + bPhi * 0.5);
+        if (wave2 > 0.60) delta += 1;
+        if (progress > 0.60 && wave > 0.65) delta -= 1; /* whitecap foam */
 
         chars[x] = WAVE_CHARS[Math.min(5, Math.max(0, bi + delta))];
       }
