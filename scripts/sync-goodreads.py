@@ -4,8 +4,10 @@
 Fetches 'currently-reading' and 'favorites' RSS feeds and writes
 reading/data.json, which the Reading page loads client-side.
 """
+import html
 import json
 import os
+import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -23,6 +25,15 @@ def fetch_shelf(shelf):
         return r.read()
 
 
+def strip_html(text):
+    if not text:
+        return None
+    text = html.unescape(text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text or None
+
+
 def parse_shelf(xml_bytes):
     root = ET.fromstring(xml_bytes)
     books = []
@@ -36,6 +47,7 @@ def parse_shelf(xml_bytes):
             "author": t("author_name"),
             "cover": t("book_large_image_url"),
             "link": t("link"),
+            "description": strip_html(t("book_description")),
         })
     return books
 

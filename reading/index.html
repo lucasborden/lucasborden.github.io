@@ -62,11 +62,13 @@
       <section id="reading">
         <h2>Reading</h2>
 
-        <p class="reading-intro">
-          If you know me well, chances are I've already recommended you a book. I especially love
-          sci-fi and fantasy. Here's what I'm currently reading, followed by a select few of my
-          absolute favorites.
-        </p>
+        <div class="reading-intro-card">
+          <p class="reading-intro">
+            If you know me well, chances are I've already recommended you a book. I especially love
+            sci-fi and fantasy. Here's what I'm currently reading, followed by a select few of my
+            absolute favorites.
+          </p>
+        </div>
 
         <h3 class="reading-heading">Currently Reading</h3>
         <div id="currently-reading-shelf" class="book-shelf">
@@ -142,7 +144,11 @@
                     "</span>" +
                     '<span class="book-author">' +
                     esc(b.author) +
-                    "</span></div></a>"
+                    "</span>" +
+                    (b.description
+                      ? '<p class="book-description">' + esc(b.description) + "</p>"
+                      : "") +
+                    "</div></a>"
                   );
                 })
                 .join("");
