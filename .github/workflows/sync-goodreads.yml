@@ -1,0 +1,25 @@
+name: Sync Goodreads
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours
+  workflow_dispatch:          # allow manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Goodreads shelves
+        run: python3 scripts/sync-goodreads.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reading/data.json
+          git diff --staged --quiet || (git commit -m "chore: sync Goodreads data" && git push)

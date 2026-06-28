@@ -1,0 +1,188 @@
+<!-- /reading/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="What Lucas Borden is reading — current books and all-time favorites."
+    />
+
+    <title>Lucas Borden — Reading</title>
+
+    <link rel="stylesheet" href="/styles.css" />
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="site-left">
+          <h1 class="site-title">
+            <a class="site-title-link" href="/" aria-label="Home">Lucas Borden</a>
+          </h1>
+
+          <div class="header-icons" aria-label="Social links">
+            <a
+              href="https://www.linkedin.com/in/lucas-borden-991585139/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+
+            <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <nav aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="/">About</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li>
+              <a href="/docs/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+            </li>
+            <li><a href="/reading">Reading</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="reading">
+        <h2>Reading</h2>
+
+        <p class="reading-intro">
+          If you know me well, chances are I've already recommended you a book. I especially love
+          sci-fi and fantasy. Here's what I'm currently reading, followed by a select few of my
+          absolute favorites.
+        </p>
+
+        <h3 class="reading-heading">Currently Reading</h3>
+        <div id="currently-reading-shelf" class="book-shelf">
+          <p class="books-status">Loading&hellip;</p>
+        </div>
+
+        <h3 class="reading-heading">Favorites</h3>
+        <div id="favorites-grid" class="book-grid">
+          <p class="books-status">Loading&hellip;</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="footer-left">
+          <span class="footer-name">© <span id="year"></span> Lucas Borden</span>
+        </div>
+
+        <div class="footer-links" aria-label="Footer links">
+          <a
+            href="https://www.linkedin.com/in/lucas-borden-991585139/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a href="mailto:lucas.borden@econ.uzh.ch" aria-label="Email">Email</a>
+          <a href="/docs/cv.pdf" target="_blank" rel="noopener noreferrer" aria-label="CV">CV</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/scripts.js"></script>
+    <script src="/coastal-bg.js"></script>
+    <script>
+      (function () {
+        function esc(s) {
+          return s
+            ? s
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+            : "";
+        }
+
+        fetch("/reading/data.json")
+          .then(function (r) {
+            if (!r.ok) throw new Error("fetch failed");
+            return r.json();
+          })
+          .then(function (data) {
+            var shelf = document.getElementById("currently-reading-shelf");
+            var grid = document.getElementById("favorites-grid");
+
+            if (data.currently_reading && data.currently_reading.length) {
+              shelf.innerHTML = data.currently_reading
+                .map(function (b) {
+                  return (
+                    '<a class="book-card-current" href="' +
+                    esc(b.link || "") +
+                    '" target="_blank" rel="noopener noreferrer">' +
+                    (b.cover
+                      ? '<img class="book-cover-current" src="' +
+                        esc(b.cover) +
+                        '" alt="' +
+                        esc(b.title) +
+                        '" loading="lazy">'
+                      : "") +
+                    '<div class="book-info"><span class="book-title">' +
+                    esc(b.title) +
+                    "</span>" +
+                    '<span class="book-author">' +
+                    esc(b.author) +
+                    "</span></div></a>"
+                  );
+                })
+                .join("");
+            } else {
+              shelf.innerHTML = '<p class="books-status">Nothing on the shelf right now.</p>';
+            }
+
+            if (data.favorites && data.favorites.length) {
+              grid.innerHTML = data.favorites
+                .map(function (b) {
+                  return (
+                    '<a class="book-card-favorite" href="' +
+                    esc(b.link || "") +
+                    '" target="_blank" rel="noopener noreferrer">' +
+                    (b.cover
+                      ? '<img class="book-cover-favorite" src="' +
+                        esc(b.cover) +
+                        '" alt="' +
+                        esc(b.title) +
+                        '" loading="lazy">'
+                      : "") +
+                    '<span class="book-title">' +
+                    esc(b.title) +
+                    "</span>" +
+                    '<span class="book-author">' +
+                    esc(b.author) +
+                    "</span></a>"
+                  );
+                })
+                .join("");
+            } else {
+              grid.innerHTML = '<p class="books-status">No favorites listed yet.</p>';
+            }
+          })
+          .catch(function () {
+            document.querySelectorAll(".books-status").forEach(function (el) {
+              el.textContent = "Could not load reading data.";
+            });
+          });
+      })();
+    </script>
+  </body>
+</html>
