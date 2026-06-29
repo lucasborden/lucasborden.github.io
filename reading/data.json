@@ -1,22 +1,36 @@
 {
-  "updated": "2026-06-29T03:51:24.986222+00:00",
+  "updated": "2026-06-29T10:58:03.965678+00:00",
   "currently_reading": [
+    {
+      "title": "Children of Ruin (Children of Time, #2)",
+      "author": "Adrian Tchaikovsky",
+      "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1693752895l/40376072._SY475_.jpg",
+      "link": "https://www.goodreads.com/review/show/8723034566?utm_medium=api&utm_source=rss",
+      "description": "The astonishing sequel to Children of Time, the award-winning novel of humanity's battle for survival on a terraformed planet. Long ago, Earth's terraforming program sent ships out to build new homes for humanity among the stars and made an unexpected discovery: a planet with life. But the scientists were unaware that the alien ecosystem was more developed than the primitive life forms originally discovered. Now, thousands of years later, the Portiids and their humans have sent an exploration vessel following fragmentary radio signals. They discover a system in crisis, warring factions trying to recover from an apocalyptic catastrophe arising from what the early terraformers awoke all those years before."
+    },
     {
       "title": "Walden or, Life in the Woods",
       "author": "Henry David Thoreau",
       "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1630470982l/16902._SY475_.jpg",
       "link": "https://www.goodreads.com/review/show/8723070033?utm_medium=api&utm_source=rss",
       "description": "Originally published in 1854, Walden; or, Life in the Woods, is a vivid account of the time that Henry D. Thoreau lived alone in a secluded cabin at Walden Pond. It is one of the most influential and compelling books in American literature. This new paperback edition-introduced by noted American writer John Updike-celebrates the 150th anniversary of this classic work. Much of Walden's material is derived from Thoreau's journals and contains such engaging pieces as \"Reading\" and \"The Pond in the Winter\" Other famous sections involve Thoreau's visits with a Canadian woodcutter and with an Irish family, a trip to Concord, and a description of his bean field. This is the complete and authoritative text of Walden-as close to Thoreau's original intention as all available evidence allows. For the student and for the general reader, this is the ideal presentation of Thoreau's great document of social criticism and dissent."
-    },
-    {
-      "title": "Children of Time (Children of Time, #1)",
-      "author": "Adrian Tchaikovsky",
-      "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1431014197l/25499718.jpg",
-      "link": "https://www.goodreads.com/review/show/8723034447?utm_medium=api&utm_source=rss",
-      "description": "A race for survival among the stars... Humanity's last survivors escaped earth's ruins to find a new home. But when they find it, can their desperation overcome its dangers? WHO WILL INHERIT THIS NEW EARTH? The last remnants of the human race left a dying Earth, desperate to find a new home among the stars. Following in the footsteps of their ancestors, they discover the greatest treasure of the past age—a world terraformed and prepared for human life. But all is not right in this new Eden. In the long years since the planet was abandoned, the work of its architects has borne disastrous fruit. The planet is not waiting for them, pristine and unoccupied. New masters have turned it from a refuge into mankind's worst nightmare. Now two civilizations are on a collision course, both testing the boundaries of what they will do to survive. As the fate of humanity hangs in the balance, who are the true heirs of this new Earth?"
     }
   ],
   "favorites": [
+    {
+      "title": "Theft",
+      "author": "Abdulrazak Gurnah",
+      "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1722396389l/217006044._SY475_.jpg",
+      "link": "https://www.goodreads.com/review/show/8723031386?utm_medium=api&utm_source=rss",
+      "description": "Bloomsbury presents Theft by Abdulrazak Gurnah, read by Ashley Zhangazha. The new novel from the winner of the 2021 Nobel Prize in Literature - 'a maestro' ( Guardian ). A captivating story of the intertwined lives of three young people coming-of-age in postcolonial East Africa Selected as a book to look out for in 2025 by the Guardian , Observer , Irish Times and BBC _________________________________________________________ What are we given, and what do we have to take for ourselves? It is the 1990s. Growing up in Zanzibar, three very different young people – Karim, Fauzia and Badar – are coming of age, and dreaming of great possibilities in their young nation. But for Badar, an uneducated servant boy who has never known his parents, it seems as if all doors are closed. Brought into a lowly position in a great house in Dar es Salaam, Badar finds the first true home of his life – and the friendship of Karim, the young man of the house. Even when a shattering false accusation sees Badar sent away, Karim and Fauzia refuse to turn away from their friend. But as the three of them take their first steps in love, infatuation, work and parenthood, their bond is tested – and Karim is tempted into a betrayal that will change all of their lives forever."
+    },
+    {
+      "title": "Enshittification: Why Everything Suddenly Got Worse and What to Do About It",
+      "author": "Cory Doctorow",
+      "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1745430964l/222376640._SY475_.jpg",
+      "link": "https://www.goodreads.com/review/show/8722972801?utm_medium=api&utm_source=rss",
+      "description": "Enshittification: It’s not just you―the internet sucks now. It’s been enshittified. That was no accident, and it’s not gonna fix itself. Here’s how we’ll disenshittify it so we can have a new, good internet. We are all living through the Enshittocene―the Great Enshittening―a time in which the services that matter to us, that we rely on, are being turned into giant piles of shit. It’s frustrating. Demoralizing. Even terrifying. The once-glorious internet has degenerated into “platforms” that rose to dominance because they delivered convenient and delightful services efficiently and reliably. But once we were locked in to those services, the tech bosses turned on us, relying on our dependency to keep us using the services even as they got worse and worse. The platform bosses did the same to the companies that had flocked to their services to sell stuff to us. Once we were all locked in―businesses and users―the tech companies stripped out all utility, save the bare minimum needed to stave off total collapse. In Enshittification, Cory Doctorow shows us where it comes from: not the iron laws of economics, or the great forces of history, but specific policy choices made by powerful people who ignored every warning about the consequences of those choices. These are choices that can be undone. Enshittification is a Big Tech disassembly manual, a road map for the seizure of the means of computation. It is a diagnosis, and it is a cure."
+    },
     {
       "title": "The Return of the King (The Lord of the Rings, #3)",
       "author": "J.R.R. Tolkien",
