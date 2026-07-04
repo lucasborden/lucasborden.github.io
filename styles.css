@@ -278,6 +278,14 @@ section {
   line-height: 1.5;
 }
 
+.paper-note {
+  margin-top: -0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
 .project-card p {
   max-width: none;
 }
