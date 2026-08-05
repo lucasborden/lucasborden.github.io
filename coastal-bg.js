@@ -86,27 +86,65 @@
     for (var i = 0; i < padded.length; i++) PAD.push(padded[i]);
     seaStart = skyPad + SKY_ROWS;
 
+    /* On tall/narrow viewports skyPad grows large (the 125-row sea art gets
+       padded out to fill the height), pushing the horizon way down and
+       leaving a big flat, static "sky" gap above the ocean — disconnected
+       from the cliff, which (via buildCliffPad below) already spans the
+       full viewport height. Cap the horizon at 20% down — high enough to
+       connect the ocean to the cliff, low enough to leave a clear sky band
+       above it.                                                            */
+    var maxSeaStart = Math.round(tgtRows * 0.228);
+    if (maxSeaStart < seaStart) seaStart = maxSeaStart;
+
     /* ── cliff pad: scale cliff art (166 rows × 303 cols) → viewport ── */
     CLIFF_PAD = buildCliffPad(tgtRows, tgtCols);
+  }
+
+  /* Static, per-row coastline-boundary offset. Same layered-sine idiom as
+     the wave shading in loop() (sh1/sh2/sh3), but with NO time term — this
+     is geometry baked once into CLIFF_PAD on resize, not per-frame motion.
+     Four components at self-similar scales, weighted to sum to 1.0 so the
+     result is analytically bounded to [-1, 1]: one dominant headland/bay,
+     coves, and two jagged-rock tiers (the last detuned against the third
+     so they don't beat into a regular ripple).                             */
+  function coastBoundaryWobble(t) {
+    var large = Math.sin(t * 8.8   + 0.60); /* ~1.4 cycles → 1-2 headlands/bays */
+    var med   = Math.sin(t * 27.5  + 2.35); /* ~4.4 cycles → coves              */
+    var fine  = Math.sin(t * 79.0  + 4.10); /* ~12.6 cycles → jagged rock steps */
+    var rough = Math.sin(t * 132.0 + 1.05); /* detuned fine jag                 */
+    return 0.50 * large + 0.30 * med + 0.13 * fine + 0.07 * rough;
   }
 
   function buildCliffPad(tgtRows, tgtCols) {
     var nCliff = CLIFF_ROWS.length;
     var result  = new Array(tgtRows);
-    /* cliff spans right 45% of viewport; left 55% is guaranteed open sea.
-       Within the cliff zone the left 18% is a feather band: only the heaviest
-       chars (@, %, #) appear right at the edge, then progressively lighter
-       chars phase in — this dissolves the hard barrier into the sea.          */
-    var cliffW   = Math.round(tgtCols * 0.22); /* cliff in right 22%          */
-    var seaW     = tgtCols - cliffW;           /* guaranteed sea = left 78%   */
-    var blendW   = Math.round(cliffW * 0.45); /* feather = 45% of cliff zone */
 
-    /* Only use the top 68% of cliff art rows — that's the peak + face.
-       The bottom 32% is the uniform cliff base (@@@ blob); we exclude it
-       so the cliff face stretches naturally from top to footer.            */
-    var cliffArtLimit = Math.round(nCliff * 0.68);
+    /* cliff width wobbles per row around a 22% baseline (±11%, bounded by
+       coastBoundaryWobble's [-1,1] range) — headlands push it out toward
+       the sea, inlets/coves pull it back — instead of one fixed column
+       for every row. Feather band is a smaller fraction of the cliff zone
+       now that the boundary's shape itself breaks up the hard edge.        */
+    var baseCliffW = tgtCols * 0.22;
+    var ampCliffW  = tgtCols * 0.11;
+    var minCliffW  = Math.round(tgtCols * 0.09);
+    var maxCliffW  = Math.round(tgtCols * 0.35);
+    var BLEND_FRAC = 0.18;
+
+    /* Cliff art transition-density stays rich through ~90% of the source
+       rows (photo texture, not the flat base blob) — only the last ~10%
+       flattens into long uniform runs, so use up to that point.            */
+    var cliffArtLimit = Math.round(nCliff * 0.90);
 
     for (var i = 0; i < tgtRows; i++) {
+      var t = i / Math.max(1, tgtRows - 1);
+
+      var wobble = coastBoundaryWobble(t);
+      var cliffW = Math.round(baseCliffW + wobble * ampCliffW);
+      if (cliffW < minCliffW) cliffW = minCliffW;
+      if (cliffW > maxCliffW) cliffW = maxCliffW;
+      var seaW   = tgtCols - cliffW;
+      var blendW = Math.max(1, Math.round(cliffW * BLEND_FRAC));
+
       /* vertical mapping: cliff art rows 0..cliffArtLimit → full viewport  */
       var ci   = Math.round(i * (cliffArtLimit - 1) / Math.max(1, tgtRows - 1));
       ci       = Math.min(ci, cliffArtLimit - 1);
