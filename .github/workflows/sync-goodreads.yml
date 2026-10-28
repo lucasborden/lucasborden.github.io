@@ -1,8 +1,7 @@
 name: Sync Goodreads
 
 on:
-  schedule:
-    - cron: "0 */6 * * *"   # every 6 hours
+  # Schedule disabled: Goodreads shut off public RSS feeds (404) in Oct 2026.
   workflow_dispatch:          # allow manual trigger from GitHub UI
 
 permissions:
